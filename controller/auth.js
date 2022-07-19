@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { validationResult } from 'express-validator'
+import { validationResult } from 'express-validator';
 
 import User from '../model/user.js';
 
