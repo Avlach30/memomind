@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 import authRouter from './router/auth.js';
+import memoRouter from './router/memo.js';
 
 const app = express();
 dotenv.config();
@@ -11,13 +12,14 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
   next();
 });
 
 app.use('/api/auth', authRouter);
+app.use('/api', memoRouter);
 
 //* Middleware for centralized error handler
 app.use((error, req, res, next) => {

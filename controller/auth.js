@@ -1,23 +1,27 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { validationResult } from 'express-validator'
+import { validationResult } from 'express-validator';
 
 import User from '../model/user.js';
 
 dotenv.config();
 
+const validationChecker = (reqObj) => {
+  const validationError = validationResult(reqObj);
+  if (!validationError.isEmpty()) {
+    const error = new Error('Validation Failed');
+    error.statusCode = 422;
+    error.data = validationError.array()[0].msg;
+    throw error;
+  }
+}
+
 const signUp = async (req, res, next) => {
   const { name, email, password } = req.body;
 
   try {
-    const validationError = validationResult(req);
-    if (!validationError.isEmpty()) {
-      const error = new Error('Validation Failed');
-      error.statusCode = 422;
-      error.data = validationError.array()[0].msg;
-      throw error;
-    }
+    validationChecker(req);
 
     const existUser = await User.findOne({ email: email });
 
@@ -87,7 +91,32 @@ const logIn = async (req, res, next) => {
     }
     next(error);
   }
-}
+};
+
+const updateLoggedUser = async (req, res, next) => {
+  const { name, email } = req.body;
+  try {
+    validationChecker(req);
+
+    const user = await User.findById(req.userId);
+
+    user.name = name;
+    user.email = email;
+    await user.save();
+
+    res.status(200).json({
+      status: 200,
+      message: 'Successfully updated logged user data',
+    });
+
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+
+};
 
 
-export { signUp, logIn };
+export { signUp, logIn, updateLoggedUser };
