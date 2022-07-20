@@ -2,10 +2,14 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { validationResult } from 'express-validator';
+import { createClient } from 'redis';
 
 import User from '../model/user.js';
 
 dotenv.config();
+
+const client = createClient();
+await client.connect();
 
 const validationChecker = (reqObj) => {
   const validationError = validationResult(reqObj);
@@ -92,14 +96,27 @@ const logIn = async (req, res, next) => {
 };
 
 const getLoggedUser = async (req, res, next) => {
+  let userId;
   try {
-    const user = await User.findOne({_id: req.userId}).select('-password');
+    //* Get logged userId value from redis cache store
+    const getUserId = await client.get('loggedUserId');
 
+    if (!getUserId) {
+      //* If not available, make a new key-value pair of logged user id
+      await client.set('loggedUserId', req.userId);
+      userId = await client.get('loggedUserId');
+    } else {
+      //* If already available, reassign to another useful variable
+      userId = getUserId;
+    }
+
+    const user = await User.findOne({ _id: userId }).select('-password');
     res.status(200).json({
       status: 200,
       message: 'Get logged user data successfully',
       data: user,
     });
+
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
