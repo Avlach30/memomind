@@ -93,7 +93,7 @@ const logIn = async (req, res, next) => {
 
 const getLoggedUser = async (req, res, next) => {
   try {
-    const user = await User.findById(req.userId);
+    const user = await User.findOne({_id: req.userId}).select('-password');
 
     res.status(200).json({
       status: 200,
