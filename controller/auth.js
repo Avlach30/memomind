@@ -91,6 +91,23 @@ const logIn = async (req, res, next) => {
   }
 };
 
+const getLoggedUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.userId);
+
+    res.status(200).json({
+      status: 200,
+      message: 'Get logged user data successfully',
+      data: user,
+    });
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+};
+
 const updateLoggedUser = async (req, res, next) => {
   const { name, email } = req.body;
   try {
@@ -117,4 +134,4 @@ const updateLoggedUser = async (req, res, next) => {
 };
 
 
-export { signUp, logIn, updateLoggedUser };
+export { signUp, logIn, getLoggedUser, updateLoggedUser };
