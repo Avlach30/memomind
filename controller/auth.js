@@ -31,7 +31,7 @@ const signUp = async (req, res, next) => {
       throw error;
     }
 
-    const hashedPw = await bcrypt.hash(password, 16);
+    const hashedPw = await bcrypt.hash(password, 12);
 
     const user = new User({
       name: name,
@@ -42,7 +42,6 @@ const signUp = async (req, res, next) => {
     await user.save();
 
     res.status(201).json({
-      status: 201,
       message: 'Sign up successfully',
       email: email,
     });
@@ -79,7 +78,6 @@ const logIn = async (req, res, next) => {
     }, process.env.TOKEN_SECRET_TEXT, { expiresIn: '1h' });
 
     res.status(200).json({
-      status: 200,
       message: `Successfully login as ${user.email}`,
       userId: user._id.toString(),
       token: token,
