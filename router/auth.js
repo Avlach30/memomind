@@ -1,7 +1,7 @@
 import express from 'express';
 import { body } from 'express-validator';
 
-import { signUp, logIn, updateLoggedUser } from '../controller/auth.js';
+import { signUp, logIn, getLoggedUser, updateLoggedUser } from '../controller/auth.js';
 
 import isAuth from '../middleware/isAuth.js';
 
@@ -15,6 +15,8 @@ router.post(
   signUp);
 
 router.post('/login', logIn);
+
+router.get('/profile', isAuth, getLoggedUser);
 
 router.patch(
   '/profile', 
