@@ -1,0 +1,322 @@
+{
+	"info": {
+		"_postman_id": "54ec4cf7-f97c-4ea4-a120-a06b61cf81c1",
+		"name": "memomind",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12297286"
+	},
+	"item": [
+		{
+			"name": "authentication",
+			"item": [
+				{
+					"name": "sign up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"johndoe\",\r\n    \"email\": \"johndoe@gmail.com\",\r\n    \"password\": \"johndoe99!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "log in",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"johndoe@gmail.com\",\r\n    \"password\": \"johndoe99!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get logged user data",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwiaWQiOiI2MmQ3ODY3YzBiYTdjYzU2MDhkNzQ1NmYiLCJpYXQiOjE2NTgzMjYxOTEsImV4cCI6MTY1ODMyOTc5MX0.05ZsYtUs534ETFKP4u_g4SByyVaL-HpxUjjA4F1hQyA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/auth/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update logged user data",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvY2tldG1haWxAZ21haWwuY29tIiwiaWQiOiI2MmQ2Y2NkNzg5ZWY4NTg1ZjJmY2RhNjAiLCJpYXQiOjE2NTgyNTExNzksImV4cCI6MTY1ODI1NDc3OX0.BSssqcGebDms6MryRgpP6SH27MEex-WVlexvpb1Eu50",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"rocketpunch\",\r\n    \"email\": \"rocketpunch@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "memo",
+			"item": [
+				{
+					"name": "get all memo data (include memo from logged user)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwiaWQiOiI2MmQ2Y2M5Mjg5ZWY4NTg1ZjJmY2RhNWQiLCJpYXQiOjE2NTgyNTEyMjgsImV4cCI6MTY1ODI1NDgyOH0.uDYikpZCdMEgzMgf-T1C0JiVioBgmMRdyJ6avp7kuds",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/memos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"memos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create new memo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvY2tldG1haWxAZ21haWwuY29tIiwiaWQiOiI2MmQ2Y2NkNzg5ZWY4NTg1ZjJmY2RhNjAiLCJpYXQiOjE2NTgyNDc3MzQsImV4cCI6MTY1ODI1MTMzNH0.EocvCB-RQUe9oSX642pOdw785mrZpTFZl4o5CCudxcA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"upgrade list\",\r\n    \"content\":\"ram, ssd, and speaker\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/memos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"memos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get single memo data",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvY2tldG1haWxAZ21haWwuY29tIiwiaWQiOiI2MmQ2Y2NkNzg5ZWY4NTg1ZjJmY2RhNjAiLCJpYXQiOjE2NTgyNTExNzksImV4cCI6MTY1ODI1NDc3OX0.BSssqcGebDms6MryRgpP6SH27MEex-WVlexvpb1Eu50",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/memos/62d6deb139644b6440230993",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"memos",
+								"62d6deb139644b6440230993"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update existing memo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwiaWQiOiI2MmQ2Y2M5Mjg5ZWY4NTg1ZjJmY2RhNWQiLCJpYXQiOjE2NTgyNTEyMjgsImV4cCI6MTY1ODI1NDgyOH0.uDYikpZCdMEgzMgf-T1C0JiVioBgmMRdyJ6avp7kuds",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"Updated upgrade equipment list\",\r\n    \"content\":\"Joystick, Mouse, Keyboard\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/memos/62d6de7239644b644023098d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"memos",
+								"62d6de7239644b644023098d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete memo data",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvY2tldG1haWxAZ21haWwuY29tIiwiaWQiOiI2MmQ2Y2NkNzg5ZWY4NTg1ZjJmY2RhNjAiLCJpYXQiOjE2NTgyNTExNzksImV4cCI6MTY1ODI1NDc3OX0.BSssqcGebDms6MryRgpP6SH27MEex-WVlexvpb1Eu50",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/memos/62d6e5edc5ed7c71a9d15e39",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"memos",
+								"62d6e5edc5ed7c71a9d15e39"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
